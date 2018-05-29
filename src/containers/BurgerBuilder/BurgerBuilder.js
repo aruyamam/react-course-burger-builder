@@ -4,6 +4,13 @@ import Aux from '../../hoc/Auxiliary';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 
+const INGREDIENT_PRICES = {
+  salad : 0.5,
+  cheese: 0.4,
+  meat  : 1.3,
+  bacon : 0.7,
+};
+
 class BurgerBuilder extends Component {
   // constructor(props) {
   //   super(props);
@@ -16,14 +23,36 @@ class BurgerBuilder extends Component {
       bacon : 0,
       cheese: 0,
       meat  : 0,
-    }
+    },
+    totalPrice: 4,
+  };
+
+  addIngredientHandler = (type) => {
+    const oldCount           = this.state.ingredients[type],
+          updateCount        = oldCount + 1,
+          updatedIngredients = {
+            ...this.state.ingredients
+          };
+          
+    updatedIngredients[type] = updateCount;
+
+    const priceAddition = INGREDIENT_PRICES[type],
+          oldPrice      = this.state.totalPrice,
+          newPrice      = oldPrice + priceAddition;
+
+    this.setState({
+      totalPrice: newPrice,
+      ingredients: updatedIngredients
+    });
   };
 
   render() {
     return (
       <Aux>
         <Burger ingredients={this.state.ingredients} />
-        <BuildControls />
+        <BuildControls
+          ingredientAdded={this.addIngredientHandler}
+        />
       </Aux>
     );
   }
