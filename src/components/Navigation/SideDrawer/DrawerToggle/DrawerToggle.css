@@ -1,0 +1,19 @@
+.MenuBtn {
+  background-color: #fff;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 6px 0;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.MenuBtn span {
+  display: inline-block;
+  width: 90%;
+  height: 3px;
+  background-color: #777;
+}
