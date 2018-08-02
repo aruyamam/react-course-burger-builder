@@ -7,31 +7,35 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 class Orders extends Component {
    state = {
       orders: [],
-      loading: true,
+      loading: true
    };
 
    componentDidMount() {
-      axios.get('/orders.json')
-         .then(res => {
-            const fetchedOrders = [];
-            for (let key in res.data) {
-               fetchedOrders.push({
-                  ...res.data[key],
-                  id: key,
-               });
-            }
-            this.setState({
-               loading: false,
-               orders: fetchedOrders,
+      axios.get('/orders.json').then(res => {
+         const fetchedOrders = [];
+         for (let key in res.data) {
+            fetchedOrders.push({
+               ...res.data[key],
+               id: key
             });
+         }
+         this.setState({
+            loading: false,
+            orders: fetchedOrders
          });
+      });
    }
 
    render() {
       return (
          <div>
-            <Order />
-            <Order />
+            {this.state.orders.map(order => (
+                        <Order
+                              key={order.id}
+                              ingredients={order.ingredients}
+                              price={order.price} // +order.price
+                        />
+            ))}
          </div>
       );
    }
