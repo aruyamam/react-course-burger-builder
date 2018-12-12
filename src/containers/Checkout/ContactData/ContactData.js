@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from '../../../axios-orders';
 
 import Button from '../../../components/UI/Button/Button';
@@ -93,9 +94,12 @@ class ContactData extends Component {
       loading: false
    };
 
-   orderHanlder = (event) => {
+   orderHanlder = event => {
       event.preventDefault();
       this.setState({ loading: true });
+
+      const { ings, price } = this.props;
+
       const formData = {};
       for (let formElementIdentifier in this.state.orderForm) {
          formData[formElementIdentifier] = this.state.orderForm[
@@ -103,17 +107,17 @@ class ContactData extends Component {
          ].value;
       }
       const order = {
-         ingredients: this.props.ingredients,
-         price: this.props.price,
+         ingredients: ings,
+         price: price,
          orderData: formData
       };
       axios
          .post('/orders.json', order)
-         .then((response) => {
+         .then(response => {
             this.setState({ loading: false });
             this.props.history.push('/');
          })
-         .catch((error) => {
+         .catch(error => {
             this.setState({ loading: false });
          });
    };
@@ -170,7 +174,7 @@ class ContactData extends Component {
       }
       let form = (
          <form onSubmit={this.orderHanlder}>
-            {formElementsArray.map((formElement) => (
+            {formElementsArray.map(formElement => (
                <Input
                   key={formElement.id}
                   elementType={formElement.config.elementType}
@@ -179,7 +183,7 @@ class ContactData extends Component {
                   invalid={!formElement.config.valid}
                   shouldValidate={formElement.config.validation}
                   touched={formElement.config.touched}
-                  changed={(event) =>
+                  changed={event =>
                      this.inputChangedHandler(event, formElement.id)
                   }
                />
@@ -205,4 +209,9 @@ class ContactData extends Component {
    }
 }
 
-export default ContactData;
+const mapStateToProps = state => ({
+   ings: state.ingredients,
+   price: state.totalPrice
+});
+
+export default connect(mapStateToProps)(ContactData);
