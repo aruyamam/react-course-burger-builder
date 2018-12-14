@@ -1,5 +1,6 @@
 import axios from '../../axios-orders';
 import {
+   PURCHASE_INIT,
    PURCHASE_BURGER_START,
    PURCHASE_BURGER_SUCCESS,
    PURCHASE_BURGER_FAIL
@@ -31,3 +32,7 @@ export const purchaseBurger = orderData => disptach => {
       })
       .catch(error => dispatch(purchaseBurgerFail(error)));
 };
+
+export const purchaseInit = () => ({
+   type: PURCHASE_INIT
+});

@@ -12,7 +12,8 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import {
    addIngredient,
    removeIngredient,
-   initIngredients
+   initIngredients,
+   purchaseInit
 } from '../../store/actions';
 
 const INGREDIENT_PRICES = {
@@ -52,7 +53,10 @@ class BurgerBuilder extends Component {
    };
 
    purchaseContinueHandler = () => {
-      this.props.history.push('/checkout');
+      const { onInitPurchase, history } = this.props;
+
+      onInitPurchase();
+      history.push('/checkout');
    };
 
    render() {
@@ -121,7 +125,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
    onIngredientAdded: ingName => dispatch(addIngredient(ingName)),
    onIngredientRemoved: ingName => dispatch(removeIngredient(ingName)),
-   onInitiIngredients: () => dispatch(initIngredients())
+   onInitiIngredients: () => dispatch(initIngredients()),
+   onInitPurchase: () => dispatch(purchaseInit())
 });
 
 export default connect(
