@@ -7,6 +7,7 @@ import {
    FETCH_ORDERS_SUCCESS,
    FETCH_ORDERS_FAIL
 } from '../actions/actionTypes';
+import { updateObject } from '../utility';
 
 const initialState = {
    orders: [],
@@ -17,54 +18,36 @@ const initialState = {
 const reducer = (state = initialState, action) => {
    switch (action.type) {
       case PURCHASE_INIT:
-         return {
-            ...state,
-            purchased: false
-         };
+         return updateObject(state, { purchased: false });
 
       case PURCHASE_BURGER_START:
-         return {
-            ...state,
-            loading: true
-         };
+         return updateObject(state, { loading: false });
 
       case PURCHASE_BURGER_SUCCESS:
-         const newOrder = {
-            ...action.orderData,
+         const newOrder = updateObject(action.orderData, {
             id: action.orderId
-         };
+         });
 
-         return {
-            ...state,
+         return updateObject(state, {
             loading: false,
             purchased: true,
             orders: state.orders.concat(newOrder)
-         };
+         });
 
       case PURCHASE_BURGER_FAIL:
-         return {
-            ...state,
-            loading: false
-         };
+         return updateObject(state, { purchased: false });
 
       case FETCH_ORDERS_START:
-         return {
-            ...state,
-            loading: true
-         };
+         return updateObject(state, { loading: true });
 
       case FETCH_ORDERS_SUCCESS:
-         return {
-            ...state,
+         return updateObject(state, {
             orders: action.orders,
             loading: false
-         };
+         });
 
       case FETCH_ORDERS_FAIL:
-         return {
-            ...state,
-            laoding: false
-         };
+         return updateObject(state, { laoding: false });
 
       default:
          return state;
