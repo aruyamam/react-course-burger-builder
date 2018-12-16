@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL } from './actionTypes';
+import {
+   AUTH_START,
+   AUTH_SUCCESS,
+   AUTH_FAIL,
+   AUTH_LOGOUT
+} from './actionTypes';
 
 const FIREBASE_API_KEY = process.env.REACT_APP_FIREBASE_API_KEY;
 
@@ -17,6 +22,18 @@ const authFail = error => ({
    type: AUTH_FAIL,
    error
 });
+
+const logout = () => ({
+   type: AUTH_LOGOUT
+});
+
+export const checkAuthTimeout = expirationTime => {
+   return dispatch => {
+      setTimeout(() => {
+         dispatch(logout());
+      }, expirationTime * 1000);
+   };
+};
 
 export const auth = (email, password, isSignup) => {
    return dispatch => {
@@ -36,10 +53,10 @@ export const auth = (email, password, isSignup) => {
          .then(response => {
             console.log(response);
             dispatch(authSuccess(response.data.idToken, response.data.localId));
+            dispatch(checkAuthTimeout(response.data.expiresIn));
          })
          .catch(err => {
-            console.log(err);
-            dispatch(authFail(err));
+            dispatch(authFail(err.response.data.error));
          });
    };
 };
