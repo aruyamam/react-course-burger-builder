@@ -5,14 +5,14 @@ import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 
 import classes from './Toolbar.css';
 
-const toolbar = props => (
+const toolbar = ({ drawerToggleClicked, isAuth }) => (
    <header className={classes.Toolbar}>
-      <DrawerToggle clicked={props.drawerToggleClicked} />
+      <DrawerToggle clicked={drawerToggleClicked} />
       <div className={classes.Logo}>
          <Logo />
       </div>
       <nav className={classes.DesktopOnly}>
-         <NavigationItems />
+         <NavigationItems isAuthenticated={isAuth} />
       </nav>
    </header>
 );
