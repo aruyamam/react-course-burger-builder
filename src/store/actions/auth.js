@@ -3,7 +3,8 @@ import {
    AUTH_START,
    AUTH_SUCCESS,
    AUTH_FAIL,
-   AUTH_LOGOUT
+   AUTH_LOGOUT,
+   SET_AUTH_REDIRECT_PATH
 } from './actionTypes';
 
 const FIREBASE_API_KEY = process.env.REACT_APP_FIREBASE_API_KEY;
@@ -60,3 +61,8 @@ export const auth = (email, password, isSignup) => {
          });
    };
 };
+
+export const setAuthRedirectPath = path => ({
+   type: SET_AUTH_REDIRECT_PATH,
+   path
+});
