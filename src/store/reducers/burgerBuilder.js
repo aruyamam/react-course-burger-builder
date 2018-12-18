@@ -5,7 +5,7 @@ import {
    FETCH_INGREDIENTS_FAILED
 } from '../actions/actionTypes';
 
-import updatedObject, { updateObject } from '../utility';
+import updatedObject, { updateObject } from '../../shared/utility';
 
 const initialState = {
    ingredients: null,
