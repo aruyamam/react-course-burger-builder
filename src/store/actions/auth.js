@@ -3,7 +3,9 @@ import {
    AUTH_START,
    AUTH_SUCCESS,
    AUTH_FAIL,
+   AUTH_LOGOUT,
    AUTH_INITIATE_LOGOUT,
+   AUTH_CHECK_TIMEOUT,
    SET_AUTH_REDIRECT_PATH
 } from './actionTypes';
 
@@ -32,11 +34,14 @@ export const logout = () => {
    return { type: AUTH_INITIATE_LOGOUT };
 };
 
+export const logoutSucceed = () => {
+   return { type: AUTH_LOGOUT };
+};
+
 export const checkAuthTimeout = expirationTime => {
-   return dispatch => {
-      setTimeout(() => {
-         dispatch(logout());
-      }, expirationTime * 1000);
+   return {
+      type: AUTH_CHECK_TIMEOUT,
+      expirationTime: expirationTime
    };
 };
 
