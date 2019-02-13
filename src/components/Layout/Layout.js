@@ -4,7 +4,6 @@ import classes from './Layout.module.css';
 
 const layout = ({ children }) => (
    <Fragment>
-      {console.log(children)}
       <div>Toolbar, SideDrawer, Backdrop</div>
       <main className={classes.Content}>{children}</main>
    </Fragment>
