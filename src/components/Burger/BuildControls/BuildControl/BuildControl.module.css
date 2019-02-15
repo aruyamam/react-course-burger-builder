@@ -16,6 +16,13 @@
    font: inherit;
 }
 
+.BuildControl button:disabled {
+   background: #ac9980;
+   border: 1px solid #7e7365;
+   color: #ccc;
+   cursor: default;
+}
+
 .Label {
    width: 80px;
    padding: 10px;
