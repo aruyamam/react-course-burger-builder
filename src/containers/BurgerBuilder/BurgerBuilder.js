@@ -22,57 +22,36 @@ class BurgerBuilder extends Component {
    };
 
    addIngredientHandler = (type) => {
-      const { ingredients, totalPrice } = this.state;
-      const oldCount = ingredients[type];
-      const updatedCount = oldCount + 1;
-      const updatedIngredients = {
-         ...ingredients,
-         [type]: updatedCount,
-      };
-      const priceAddition = INGREDIENT_PRICES[type];
-      const newPrice = totalPrice + priceAddition;
-
       this.setState(
-         {
-            totalPrice: newPrice,
-            ingredients: updatedIngredients,
-         },
+         prevState => ({
+            ingredients: {
+               ...prevState.ingredients,
+               [type]: prevState.ingredients[type] + 1,
+            },
+            totalPrice: prevState.totalPrice + INGREDIENT_PRICES[type],
+         }),
          this.updatePurchaseState,
       );
    };
 
    removeIngredientHandler = (type) => {
-      const { ingredients, totalPrice } = this.state;
-
-      const oldCount = ingredients[type];
-      if (oldCount <= 0) {
-         return;
-      }
-
-      const updatedCount = oldCount - 1;
-      const updatedIngredients = {
-         ...ingredients,
-         [type]: updatedCount,
-      };
-      const priceDeduction = INGREDIENT_PRICES[type];
-      const newPrice = totalPrice - priceDeduction;
-
       this.setState(
-         {
-            totalPrice: newPrice,
-            ingredients: updatedIngredients,
-         },
+         prevState => ({
+            ingredients: {
+               ...prevState.ingredients,
+               [type]: prevState.ingredients[type] - 1,
+            },
+            totalPrice: prevState.totalPrice - INGREDIENT_PRICES[type],
+         }),
          this.updatePurchaseState,
       );
    };
 
    updatePurchaseState() {
-      const ingredients = {
-         ...this.state.ingredients,
-      };
-      const sum = Object.values(ingredients).reduce((sum, el) => sum + el);
+      const { ingredients } = this.state;
+      const purchasable = Object.keys(ingredients).some(ing => ingredients[ing] !== 0);
 
-      this.setState({ purchasable: sum > 0 });
+      this.setState({ purchasable });
    }
 
    render() {
