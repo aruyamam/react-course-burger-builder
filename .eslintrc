@@ -1,5 +1,6 @@
 {
    "extends": ["react-app", "airbnb"],
+   "plugins": ["@typescript-eslint"],
    "rules": {
       "indent": [
          "error",
