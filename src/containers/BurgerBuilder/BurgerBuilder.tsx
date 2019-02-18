@@ -58,9 +58,17 @@ class BurgerBuilder extends Component<BBState> {
       );
    };
 
-   purchasehandler = () => {
+   purchaseHandler = () => {
       this.setState({ purchasing: true });
    };
+
+   purchaseContinueHandler = () => {
+      alert('You continue!');
+   }
+
+   purchaseCancelHandler = () => {
+      this.setState({ purchasing: false });
+   }
 
    toggleModal = () => {
       this.setState((state: BBState) => ({ purchasing: !state.purchasing }));
@@ -78,14 +86,14 @@ class BurgerBuilder extends Component<BBState> {
       return (
          <Fragment>
             <Modal toggleModal={this.toggleModal} show={purchasing}>
-               <OrderSummary ingredients={ingredients} />
+               <OrderSummary ingredients={ingredients} purchaseCancelled={this.purchaseCancelHandler} purchaseContinued={this.purchaseContinueHandler} />
             </Modal>
             <Burger ingredients={ingredients} />
             <BuildControls
                disabled={disabledInfo}
                ingredientAdded={this.addIngredientHandler}
                ingredientRemoved={this.removeIngredientHandler}
-               ordered={this.purchasehandler}
+               ordered={this.purchaseHandler}
                price={totalPrice}
                purchasable={purchasable}
             />
