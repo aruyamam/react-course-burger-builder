@@ -3,14 +3,16 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-import { BBState, DisabledInfo, Ingredients, IngredientPrices } from './BurgerBuilderTypes'
+import { BBState, DisabledInfo } from './BurgerBuilderTypes';
 
-const INGREDIENT_PRICES: IngredientPrices = {
-   salad: 0.5,
-   cheese: 0.4,
-   meat: 1.3,
-   bacon: 0.7,
-};
+enum IngredientPrices {
+   salad = 0.5,
+   cheese = 0.4,
+   meat = 1.3,
+   bacon = 0.7,
+}
+
+declare type IngPricesType = keyof typeof IngredientPrices;
 
 const disabledInfo: DisabledInfo = {
    bacon: false,
@@ -32,27 +34,27 @@ class BurgerBuilder extends Component<BBState> {
       purchasing: false,
    };
 
-   addIngredientHandler = (type: string) => {
+   addIngredientHandler = (type: IngPricesType) => {
       this.setState(
          (prevState: BBState) => ({
             ingredients: {
                ...prevState.ingredients,
                [type]: prevState.ingredients[type] + 1,
             },
-            totalPrice: prevState.totalPrice + INGREDIENT_PRICES[type],
+            totalPrice: prevState.totalPrice + IngredientPrices[type],
          }),
          this.updatePurchaseState,
       );
    };
 
-   removeIngredientHandler = (type: string) => {
+   removeIngredientHandler = (type: IngPricesType) => {
       this.setState(
          (prevState: BBState) => ({
             ingredients: {
                ...prevState.ingredients,
                [type]: prevState.ingredients[type] - 1,
             },
-            totalPrice: prevState.totalPrice - INGREDIENT_PRICES[type],
+            totalPrice: prevState.totalPrice - IngredientPrices[type],
          }),
          this.updatePurchaseState,
       );
@@ -64,11 +66,11 @@ class BurgerBuilder extends Component<BBState> {
 
    purchaseContinueHandler = () => {
       alert('You continue!');
-   }
+   };
 
    purchaseCancelHandler = () => {
       this.setState({ purchasing: false });
-   }
+   };
 
    toggleModal = () => {
       this.setState((state: BBState) => ({ purchasing: !state.purchasing }));
@@ -86,7 +88,12 @@ class BurgerBuilder extends Component<BBState> {
       return (
          <Fragment>
             <Modal toggleModal={this.toggleModal} show={purchasing}>
-               <OrderSummary ingredients={ingredients} purchaseCancelled={this.purchaseCancelHandler} purchaseContinued={this.purchaseContinueHandler} />
+               <OrderSummary
+                  ingredients={ingredients}
+                  price={totalPrice}
+                  purchaseCancelled={this.purchaseCancelHandler}
+                  purchaseContinued={this.purchaseContinueHandler}
+               />
             </Modal>
             <Burger ingredients={ingredients} />
             <BuildControls

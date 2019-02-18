@@ -6,14 +6,6 @@ export interface DisabledInfo {
    salad: boolean;
 }
 
-export interface IngredientPrices {
-   [index: string]: number;
-   bacon: number;
-   cheese: number;
-   meat: number;
-   salad: number;
-}
-
 export interface Ingredients {
    [index: string]: number;
    bacon: number;

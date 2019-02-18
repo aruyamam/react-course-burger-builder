@@ -4,11 +4,17 @@ import Button from '../../UI/Button/Button';
 
 interface Props {
    ingredients: Ingredients;
+   price: number;
    purchaseCancelled: () => void;
    purchaseContinued: () => void;
 }
 
-const OrderSummary: React.FC<Props> = ({ ingredients, purchaseCancelled, purchaseContinued }) => {
+const OrderSummary: React.FC<Props> = ({
+   ingredients,
+   price,
+   purchaseCancelled,
+   purchaseContinued,
+}) => {
    const ingredientSummary = Object.keys(ingredients).map(igKey => (
       <li key={igKey}>
          <span style={{ textTransform: 'capitalize' }}>{igKey}</span>
@@ -21,6 +27,9 @@ const OrderSummary: React.FC<Props> = ({ ingredients, purchaseCancelled, purchas
          <h3>Your Order</h3>
          <p>A delicious burger with the following ingredients:</p>
          <ul>{ingredientSummary}</ul>
+         <p>
+            <strong>{`Total Price: ${price.toFixed(2)}`}</strong>
+         </p>
          <p>Continue to Checkout?</p>
          <Button btnType="Danger" clicked={purchaseCancelled}>
             CANCEL
