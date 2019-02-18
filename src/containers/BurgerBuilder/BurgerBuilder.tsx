@@ -21,7 +21,7 @@ const disabledInfo: DisabledInfo = {
    salad: false,
 };
 
-class BurgerBuilder extends Component<BBState> {
+class BurgerBuilder extends Component {
    state: BBState = {
       ingredients: {
          bacon: 0,
