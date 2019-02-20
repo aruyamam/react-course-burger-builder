@@ -9,7 +9,6 @@ interface Props {
 
 const NavigationItem: React.FC<Props> = ({ active, children, link }) => (
    <li className={classes.NavigationItem}>
-      {console.log(active)}
       <a href={link} className={active ? classes.active : ''}>
          {children}
       </a>
