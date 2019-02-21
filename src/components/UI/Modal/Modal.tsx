@@ -10,7 +10,7 @@ interface Props {
 
 const Modal: React.FC<Props> = ({ children, toggleModal, show }) => (
    <Fragment>
-      <Backdrop toggleModal={toggleModal} show={show} />
+      <Backdrop toggleVisibility={toggleModal} show={show} />
       <div
          className={classes.Modal}
          style={{

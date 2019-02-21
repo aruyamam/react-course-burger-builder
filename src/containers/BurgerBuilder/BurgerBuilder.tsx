@@ -22,19 +22,19 @@ const disabledInfo: DisabledInfo = {
 };
 
 class BurgerBuilder extends Component {
-   state: BBState = {
+   public readonly state: Readonly<BBState> = {
       ingredients: {
          bacon: 0,
          cheese: 0,
          meat: 0,
          salad: 0,
       },
-      totalPrice: 0,
       purchasable: false,
       purchasing: false,
+      totalPrice: 0,
    };
 
-   addIngredientHandler = (type: IngPricesType) => {
+   public addIngredientHandler = (type: IngPricesType) => {
       this.setState(
          (prevState: BBState) => ({
             ingredients: {
@@ -47,7 +47,7 @@ class BurgerBuilder extends Component {
       );
    };
 
-   removeIngredientHandler = (type: IngPricesType) => {
+   public removeIngredientHandler = (type: IngPricesType) => {
       this.setState(
          (prevState: BBState) => ({
             ingredients: {
@@ -60,19 +60,19 @@ class BurgerBuilder extends Component {
       );
    };
 
-   purchaseHandler = () => {
+   public purchaseHandler = () => {
       this.setState({ purchasing: true });
    };
 
-   purchaseContinueHandler = () => {
+   public purchaseContinueHandler = () => {
       alert('You continue!');
    };
 
-   purchaseCancelHandler = () => {
+   public purchaseCancelHandler = () => {
       this.setState({ purchasing: false });
    };
 
-   toggleModal = () => {
+   public toggleModal = () => {
       this.setState((state: BBState) => ({ purchasing: !state.purchasing }));
    };
 
