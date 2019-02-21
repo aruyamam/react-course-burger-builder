@@ -1,0 +1,23 @@
+{
+   "extends": [
+      "tslint:recommended",
+      "tslint-config-prettier",
+      "tslint-config-airbnb",
+      "tslint-react"
+   ],
+   "rules": {
+      "ordered-imports": false,
+      "import-name": false,
+      "indent": [true, "spaces", 3],
+      "ter-indent": [true, 3],
+      "no-debugger": false,
+      "no-console": false
+   },
+   "linterOptions": {
+      "exclude": [
+         "config/**/*.js",
+         "node_modules/**/*.ts",
+         "coverage/lcov-report/*.js"
+      ]
+   }
+}
