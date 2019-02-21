@@ -4,12 +4,12 @@ import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 
-interface Props {
+interface IProps {
    closed: () => void;
    open: boolean;
 }
 
-const sideDrawer: React.FC<Props> = ({ closed, open }) => {
+const sideDrawer: React.FC<IProps> = ({ closed, open }) => {
    let attachedClasses = [classes.SideDrawer, classes.Close];
    if (open) {
       attachedClasses = [classes.SideDrawer, classes.Open];

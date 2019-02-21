@@ -3,27 +3,31 @@ import classes from './Layout.module.css';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 
-interface Props {
+interface IProps {
    children: React.ReactNode;
 }
 
-class Layout extends Component {
-   state = {
-      showSideDrawer: true,
+interface IState {
+   showSideDrawer: boolean;
+}
+
+class Layout extends Component<IProps> {
+   public readonly state: Readonly<IState> = {
+      showSideDrawer: false,
    };
 
-   sideDrawerClosedHandler = () => {
-      this.setState({ showSideDrawer: false });
+   public sideDrawerToggleHandler = () => {
+      this.setState((prevState: IState) => ({ showSideDrawer: !prevState.showSideDrawer }));
    };
 
-   render() {
+   public render() {
       const { children } = this.props;
       const { showSideDrawer } = this.state;
 
       return (
          <Fragment>
-            <Toolbar />
-            <SideDrawer closed={this.sideDrawerClosedHandler} open={showSideDrawer} />
+            <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
+            <SideDrawer closed={this.sideDrawerToggleHandler} open={showSideDrawer} />
             <main className={classes.Content}>{children}</main>
          </Fragment>
       );
