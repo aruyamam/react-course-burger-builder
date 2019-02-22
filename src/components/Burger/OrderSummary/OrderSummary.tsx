@@ -2,14 +2,14 @@ import React, { Fragment } from 'react';
 import { Ingredients } from '../../../containers/BurgerBuilder/BurgerBuilderTypes';
 import Button from '../../UI/Button/Button';
 
-interface Props {
+interface IProps {
    ingredients: Ingredients;
    price: number;
    purchaseCancelled: () => void;
    purchaseContinued: () => void;
 }
 
-const OrderSummary: React.FC<Props> = ({
+const orderSummary: React.FC<IProps> = ({
    ingredients,
    price,
    purchaseCancelled,
@@ -41,4 +41,4 @@ const OrderSummary: React.FC<Props> = ({
    );
 };
 
-export default OrderSummary;
+export default orderSummary;

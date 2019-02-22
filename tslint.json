@@ -11,7 +11,8 @@
       "indent": [true, "spaces", 3],
       "ter-indent": [true, 3],
       "no-debugger": false,
-      "no-console": false
+      "no-console": false,
+      "jsx-no-multiline-js": false
    },
    "linterOptions": {
       "exclude": [
