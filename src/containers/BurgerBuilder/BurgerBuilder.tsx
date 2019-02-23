@@ -3,7 +3,7 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-import { BBState, DisabledInfo } from './BurgerBuilderTypes';
+import { IBBState, IDisabledInfo } from './BurgerBuilderTypes';
 
 enum IngredientPrices {
    salad = 0.5,
@@ -14,7 +14,7 @@ enum IngredientPrices {
 
 declare type IngPricesType = keyof typeof IngredientPrices;
 
-const disabledInfo: DisabledInfo = {
+const disabledInfo: IDisabledInfo = {
    bacon: false,
    cheese: false,
    meat: false,
@@ -22,7 +22,7 @@ const disabledInfo: DisabledInfo = {
 };
 
 class BurgerBuilder extends Component {
-   public readonly state: Readonly<BBState> = {
+   public readonly state: Readonly<IBBState> = {
       ingredients: {
          bacon: 0,
          cheese: 0,
@@ -36,7 +36,7 @@ class BurgerBuilder extends Component {
 
    public addIngredientHandler = (type: IngPricesType) => {
       this.setState(
-         (prevState: BBState) => ({
+         (prevState: IBBState) => ({
             ingredients: {
                ...prevState.ingredients,
                [type]: prevState.ingredients[type] + 1,
@@ -49,7 +49,7 @@ class BurgerBuilder extends Component {
 
    public removeIngredientHandler = (type: IngPricesType) => {
       this.setState(
-         (prevState: BBState) => ({
+         (prevState: IBBState) => ({
             ingredients: {
                ...prevState.ingredients,
                [type]: prevState.ingredients[type] - 1,
@@ -73,7 +73,7 @@ class BurgerBuilder extends Component {
    };
 
    public toggleModal = () => {
-      this.setState((state: BBState) => ({ purchasing: !state.purchasing }));
+      this.setState((state: IBBState) => ({ purchasing: !state.purchasing }));
    };
 
    public render() {

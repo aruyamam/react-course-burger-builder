@@ -1,16 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classes from './BuildControls.module.css';
 import BuildControl from './BuildControl/BuildControl';
+import { IDisabledInfo } from '../../../containers/BurgerBuilder/BurgerBuilderTypes';
 
-const controls = [
+interface IProps {
+   disabled: IDisabledInfo;
+   ingredientAdded: (type: string) => void;
+   ingredientRemoved: (type: string) => void;
+   ordered: () => void;
+   price: number;
+   purchasable: boolean;
+}
+
+interface IControl {
+   label: string;
+   type: string;
+}
+
+const controls: IControl[] = [
    { label: 'Salad', type: 'salad' },
    { label: 'Bacon', type: 'bacon' },
    { label: 'Cheese', type: 'cheese' },
    { label: 'Meat', type: 'meat' },
 ];
 
-const buildControls = ({
+const buildControls: React.FC<IProps> = ({
    disabled,
    ingredientAdded,
    ingredientRemoved,
@@ -43,19 +57,5 @@ const buildControls = ({
       </button>
    </div>
 );
-
-buildControls.propTypes = {
-   disabled: PropTypes.shape({
-      bacon: PropTypes.bool.isRequired,
-      cheese: PropTypes.bool.isRequired,
-      meat: PropTypes.bool.isRequired,
-      salad: PropTypes.bool.isRequired,
-   }).isRequired,
-   ingredientAdded: PropTypes.func.isRequired,
-   ingredientRemoved: PropTypes.func.isRequired,
-   ordered: PropTypes.func.isRequired,
-   price: PropTypes.number.isRequired,
-   purchasable: PropTypes.bool.isRequired,
-};
 
 export default buildControls;

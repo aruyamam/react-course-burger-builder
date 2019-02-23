@@ -1,8 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classes from './BurgerIngredient.module.css';
 
-const burgerIngredient = ({ type }) => {
+interface IProps {
+   type: string;
+}
+
+const burgerIngredient: React.FC<IProps> = ({ type }) => {
    let ingredient = null;
 
    switch (type) {
@@ -41,10 +44,6 @@ const burgerIngredient = ({ type }) => {
    }
 
    return ingredient;
-};
-
-burgerIngredient.propTypes = {
-   type: PropTypes.string.isRequired,
 };
 
 export default burgerIngredient;

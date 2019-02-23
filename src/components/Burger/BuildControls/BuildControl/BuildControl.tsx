@@ -1,8 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classes from './BuildControl.module.css';
 
-const buildControl = ({
+interface IProps {
+   added: () => void;
+   disabled: boolean;
+   label: string;
+   removed: () => void;
+}
+
+const buildControl: React.FC<IProps> = ({
    added, disabled, label, removed,
 }) => (
    <div className={classes.BuildControl}>
@@ -15,12 +21,5 @@ const buildControl = ({
       </button>
    </div>
 );
-
-buildControl.propTypes = {
-   added: PropTypes.func.isRequired,
-   disabled: PropTypes.bool.isRequired,
-   label: PropTypes.string.isRequired,
-   removed: PropTypes.func.isRequired,
-};
 
 export default buildControl;

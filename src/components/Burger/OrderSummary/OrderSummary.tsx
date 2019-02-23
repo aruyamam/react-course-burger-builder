@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-import { Ingredients } from '../../../containers/BurgerBuilder/BurgerBuilderTypes';
+import { IIngredients } from '../../../containers/BurgerBuilder/BurgerBuilderTypes';
 import Button from '../../UI/Button/Button';
 
 interface IProps {
-   ingredients: Ingredients;
+   ingredients: IIngredients;
    price: number;
    purchaseCancelled: () => void;
    purchaseContinued: () => void;

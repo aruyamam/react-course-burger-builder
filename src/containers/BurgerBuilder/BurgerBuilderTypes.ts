@@ -1,4 +1,4 @@
-export interface DisabledInfo {
+export interface IDisabledInfo {
    [index: string]: boolean;
    bacon: boolean;
    cheese: boolean;
@@ -6,7 +6,7 @@ export interface DisabledInfo {
    salad: boolean;
 }
 
-export interface Ingredients {
+export interface IIngredients {
    [index: string]: number;
    bacon: number;
    cheese: number;
@@ -14,8 +14,8 @@ export interface Ingredients {
    salad: number;
 }
 
-export interface BBState {
-   ingredients: Ingredients;
+export interface IBBState {
+   ingredients: IIngredients;
    totalPrice: number;
    purchasable: boolean;
    purchasing: boolean;
