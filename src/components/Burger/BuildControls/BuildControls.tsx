@@ -2,11 +2,12 @@ import React from 'react';
 import classes from './BuildControls.module.css';
 import BuildControl from './BuildControl/BuildControl';
 import { IDisabledInfo } from '../../../containers/BurgerBuilder/BurgerBuilderTypes';
+import { IngPricesType } from '../../../containers/BurgerBuilder/BurgerBuilder';
 
 interface IProps {
    disabled: IDisabledInfo;
-   ingredientAdded: (type: string) => void;
-   ingredientRemoved: (type: string) => void;
+   ingredientAdded: (type: IngPricesType) => void;
+   ingredientRemoved: (type: IngPricesType) => void;
    ordered: () => void;
    price: number;
    purchasable: boolean;
@@ -14,7 +15,7 @@ interface IProps {
 
 interface IControl {
    label: string;
-   type: string;
+   type: IngPricesType;
 }
 
 const controls: IControl[] = [

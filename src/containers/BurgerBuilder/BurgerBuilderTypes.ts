@@ -20,3 +20,20 @@ export interface IBBState {
    purchasable: boolean;
    purchasing: boolean;
 }
+
+interface ICustomer {
+   name: string;
+   address: {
+      street: string;
+      zipCode: string;
+      country: string;
+   };
+   email: string;
+}
+
+export interface IOrder {
+   ingredients: IIngredients;
+   price: number;
+   customer: ICustomer;
+   deliverMethod: string;
+}

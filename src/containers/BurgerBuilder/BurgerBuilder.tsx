@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
+import axios from '../../axios-orders'
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-import { IBBState, IDisabledInfo } from './BurgerBuilderTypes';
+import { IBBState, IDisabledInfo, IOrder } from './BurgerBuilderTypes';
 
 enum IngredientPrices {
    salad = 0.5,
@@ -12,7 +13,7 @@ enum IngredientPrices {
    bacon = 0.7,
 }
 
-declare type IngPricesType = keyof typeof IngredientPrices;
+export declare type IngPricesType = keyof typeof IngredientPrices;
 
 const disabledInfo: IDisabledInfo = {
    bacon: false,
@@ -65,7 +66,26 @@ class BurgerBuilder extends Component {
    };
 
    public purchaseContinueHandler = () => {
-      alert('You continue!');
+      // alert('You continue!'); 
+      const {ingredients, totalPrice} = this.state;
+      const order: IOrder = {
+         ingredients,
+         price: totalPrice,
+         customer: {
+            address: {
+               country: 'Germany',
+               street: 'Teststreet 1',
+               zipCode: '41351',
+            },
+            email: 'test@test.com',
+            name: 'Max Schwarzmuller',
+         },
+         deliverMethod: 'fastest',
+      };
+
+      axios.post<IOrder>('/orders.json', order)
+         .then(response => console.log(response))
+         .catch(error => console.log(error));
    };
 
    public purchaseCancelHandler = () => {

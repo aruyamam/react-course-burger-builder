@@ -12,6 +12,7 @@
       "ter-indent": [true, 3],
       "no-debugger": false,
       "no-console": false,
+      "object-literal-sort-keys": false,
       "jsx-no-multiline-js": false
    },
    "linterOptions": {
