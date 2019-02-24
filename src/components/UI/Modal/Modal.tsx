@@ -10,7 +10,9 @@ interface IProps {
 
 class Modal extends React.Component<IProps> {
    public shouldComponentUpdate(nextProps: IProps) {
-      return nextProps.show !== this.props.show;
+      const { children, show } = this.props;
+
+      return nextProps.show !== show || nextProps.children !== children;
    }
 
    public render() {

@@ -16,6 +16,7 @@ export interface IIngredients {
 
 export interface IBBState {
    ingredients: IIngredients;
+   loading: boolean;
    totalPrice: number;
    purchasable: boolean;
    purchasing: boolean;
