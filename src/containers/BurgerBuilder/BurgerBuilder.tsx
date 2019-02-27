@@ -4,7 +4,8 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-import Spinner from '../../components/UI/Spinner/Spinner'
+import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import { IBBState, IDisabledInfo, IOrder } from './BurgerBuilderTypes';
 
 enum IngredientPrices {
@@ -108,7 +109,7 @@ class BurgerBuilder extends Component {
       this.setState((state: IBBState) => ({ purchasing: !state.purchasing }));
    };
 
-   public render() {
+   public render(): JSX.Element {
       const {
          loading, ingredients, totalPrice, purchasable, purchasing,
       } = this.state;
@@ -156,4 +157,4 @@ class BurgerBuilder extends Component {
    }
 }
 
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder, axios);
