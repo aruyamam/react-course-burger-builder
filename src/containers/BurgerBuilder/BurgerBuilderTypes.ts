@@ -20,6 +20,7 @@ export interface IBBState {
    totalPrice: number;
    purchasable: boolean;
    purchasing: boolean;
+   // isError: boolean;
 }
 
 interface ICustomer {

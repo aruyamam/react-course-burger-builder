@@ -16,7 +16,7 @@ const withErrorHandler = <P extends object>(
          error: null,
       };
 
-      public componentDidMount() {
+      public componentWillMount() {
          axios.interceptors.request.use((req: AxiosRequestConfig) => {
             this.setState({ error: null });
 
