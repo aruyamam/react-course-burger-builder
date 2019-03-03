@@ -1,6 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import {
-   AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError,
+   AxiosInstance,
+   AxiosRequestConfig,
+   AxiosResponse,
+   AxiosError,
+   AxiosInterceptorManager,
 } from 'axios';
 import Modal from '../../components/UI/Modal/Modal';
 
@@ -17,19 +21,24 @@ const withErrorHandler = <P extends object>(
       };
 
       public componentWillMount() {
-         axios.interceptors.request.use((req: AxiosRequestConfig) => {
+         this.reqInterceptor = axios.interceptors.request.use((req: AxiosRequestConfig) => {
             this.setState({ error: null });
 
             return req;
          });
 
-         axios.interceptors.response.use(
+         this.resInterceptor = axios.interceptors.response.use(
             (res: AxiosResponse) => res,
             (error) => {
                console.log(error);
                this.setState({ error });
             },
          );
+      }
+
+      public componentWillUnmount() {
+         axios.interceptors.request.eject(this.reqInterceptor);
+         axios.interceptors.response.eject(this.resInterceptor);
       }
 
       public render() {
