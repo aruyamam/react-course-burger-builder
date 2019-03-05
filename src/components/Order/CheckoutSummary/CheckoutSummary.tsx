@@ -5,6 +5,8 @@ import { IIngredients } from '../../../containers/BurgerBuilder/BurgerBuilderTyp
 import classes from './CheckoutSummary.module.css';
 
 interface IProps {
+   checkoutCancelled: () => void;
+   checkoutContinued: () => void;
    ingredients: IIngredients;
 }
 
@@ -13,16 +15,20 @@ const containerStyle: React.CSSProperties = {
    margin: 'auto',
 };
 
-const checkoutSummary: React.FC<IProps> = ({ ingredients }) => (
+const checkoutSummary: React.FC<IProps> = ({
+   checkoutCancelled,
+   checkoutContinued,
+   ingredients,
+}) => (
    <div className={classes.CheckoutSummary}>
       <h1>We hope it tastes well!</h1>
       <div style={containerStyle}>
          <Burger ingredients={ingredients} />
       </div>
-      <Button btnType="Danger" clicked={() => {}}>
+      <Button btnType="Danger" clicked={checkoutCancelled}>
          CANCEL
       </Button>
-      <Button btnType="Success" clicked={() => {}}>
+      <Button btnType="Success" clicked={checkoutContinued}>
          CONTINUE
       </Button>
    </div>

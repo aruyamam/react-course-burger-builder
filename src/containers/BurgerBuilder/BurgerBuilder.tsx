@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import axios from '../../axios-orders';
 import { AxiosResponse } from 'axios'
 import Burger from '../../components/Burger/Burger';
@@ -25,7 +26,7 @@ const disabledInfo: IDisabledInfo = {
    salad: false,
 };
 
-class BurgerBuilder extends Component {
+class BurgerBuilder extends Component<RouteComponentProps, IBBState> {
    public readonly state: Readonly<IBBState> = {
       ingredients: {
          bacon: 0,
@@ -83,36 +84,49 @@ class BurgerBuilder extends Component {
    };
 
    public purchaseContinueHandler = () => {
-      this.setState({ loading: true });
+      // this.setState({ loading: true });
 
-      const { ingredients, totalPrice } = this.state;
-      const order: IOrder = {
-         ingredients,
-         price: totalPrice,
-         customer: {
-            address: {
-               country: 'Germany',
-               street: 'Teststreet 1',
-               zipCode: '41351',
-            },
-            email: 'test@test.com',
-            name: 'Max Schwarzmuller',
-         },
-         deliverMethod: 'fastest',
-      };
+      // const { ingredients, totalPrice } = this.state;
+      // const order: IOrder = {
+      //    ingredients,
+      //    price: totalPrice,
+      //    customer: {
+      //       address: {
+      //          country: 'Germany',
+      //          street: 'Teststreet 1',
+      //          zipCode: '41351',
+      //       },
+      //       email: 'test@test.com',
+      //       name: 'Max Schwarzmuller',
+      //    },
+      //    deliverMethod: 'fastest',
+      // };
 
-      axios.post<IOrder>('/orders.json', order)
-         .then(response => this.setState({
-            loading: false,
-            purchasing: false,
-         }))
-         .catch((error) => {
-            console.log(error);
-            this.setState({
-               loading: false,
-               purchasing: false,
-            });
-         });
+      // axios.post<IOrder>('/orders.json', order)
+      //    .then(response => this.setState({
+      //       loading: false,
+      //       purchasing: false,
+      //    }))
+      //    .catch((error) => {
+      //       console.log(error);
+      //       this.setState({
+      //          loading: false,
+      //          purchasing: false,
+      //       });
+      //    });
+      const { ingredients } = this.state;
+      const queryParams: string[] = [];
+      for (const i in ingredients) {
+         if (ingredients.hasOwnProperty(i)) {
+            queryParams.push(`${encodeURIComponent(i)}=${encodeURIComponent(ingredients[i].toString())}`)
+         }
+      }
+      const queryString: string = queryParams.join('&');
+      
+      this.props.history.push({
+         pathname: '/checkout',
+         search: `?${queryString}`
+      });
    };
 
    public purchaseCancelHandler = () => {
