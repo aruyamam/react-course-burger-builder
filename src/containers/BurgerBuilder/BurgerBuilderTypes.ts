@@ -23,7 +23,7 @@ export interface IBBState {
    isError: boolean;
 }
 
-interface ICustomer {
+export interface ICustomer {
    name: string;
    address: {
       street: string;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { Route, RouteComponentProps } from 'react-router-dom';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
+import ContactData from './ContactData/ContactData';
 import { IIngredients } from '../BurgerBuilder/BurgerBuilderTypes';
 
 class Checkout extends Component<RouteComponentProps> {
@@ -13,7 +14,7 @@ class Checkout extends Component<RouteComponentProps> {
       },
    };
 
-   componentDidMount() {
+   public componentDidMount() {
       const { location } = this.props;
       const query: URLSearchParams = new URLSearchParams(location.search);
       const ingredients: IIngredients = {
@@ -41,6 +42,7 @@ class Checkout extends Component<RouteComponentProps> {
 
    public render() {
       const { ingredients } = this.state;
+      const { match } = this.props;
 
       return (
          <div>
@@ -49,6 +51,7 @@ class Checkout extends Component<RouteComponentProps> {
                checkoutContinued={this.checkoutContinueHandler}
                ingredients={ingredients}
             />
+            <Route path={`${match.path}/contact-data`} component={ContactData} />
          </div>
       );
    }
