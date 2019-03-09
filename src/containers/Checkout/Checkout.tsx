@@ -4,14 +4,20 @@ import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSumm
 import ContactData from './ContactData/ContactData';
 import { IIngredients } from '../BurgerBuilder/BurgerBuilderTypes';
 
-class Checkout extends Component<RouteComponentProps> {
+interface IState {
+   ingredients: IIngredients;
+   totalPrice: number;
+}
+
+class Checkout extends Component<RouteComponentProps, IState> {
    public readonly state = {
       ingredients: {
-         cheese: 1,
-         bacon: 2,
-         meat: 1,
-         salad: 1,
+         cheese: 0,
+         bacon: 0,
+         meat: 0,
+         salad: 0,
       },
+      totalPrice: 0,
    };
 
    public componentDidMount() {
@@ -23,11 +29,21 @@ class Checkout extends Component<RouteComponentProps> {
          meat: 0,
          salad: 0,
       };
+      let price: number = 0;
+
       for (const param of query.entries()) {
-         ingredients[param[0]] = +param[1];
+         if (param[0] === 'price') {
+            price = +param[1];
+         }
+         else {
+            ingredients[param[0]] = +param[1];
+         }
       }
 
-      this.setState({ ingredients });
+      this.setState({
+         ingredients,
+         totalPrice: price,
+      });
    }
 
    public checkoutCancelHandler = () => {
@@ -41,7 +57,7 @@ class Checkout extends Component<RouteComponentProps> {
    };
 
    public render() {
-      const { ingredients } = this.state;
+      const { ingredients, totalPrice } = this.state;
       const { match } = this.props;
 
       return (
@@ -51,7 +67,12 @@ class Checkout extends Component<RouteComponentProps> {
                checkoutContinued={this.checkoutContinueHandler}
                ingredients={ingredients}
             />
-            <Route path={`${match.path}/contact-data`} component={ContactData} />
+            <Route
+               path={`${match.path}/contact-data`}
+               render={(props: RouteComponentProps) => (
+                  <ContactData ingredients={ingredients} totalPrice={totalPrice} {...props} />
+               )}
+            />
          </div>
       );
    }

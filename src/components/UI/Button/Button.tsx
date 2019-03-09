@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import classes from './Button.module.css';
 
 interface IProps {
    btnType: string;
-   clicked: () => void;
+   clicked: (event: MouseEvent) => void;
    children: React.ReactNode;
 }
 
