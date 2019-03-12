@@ -44,7 +44,6 @@ class BurgerBuilder extends Component<RouteComponentProps, IBBState> {
    public componentDidMount() {
       this.setState({ loading: true })
       axios.get<IIngredients>('/ingredients.json').then((response: AxiosResponse) => {
-         console.log(response);
          this.setState({
             ingredients: response.data,
             loading: false,
