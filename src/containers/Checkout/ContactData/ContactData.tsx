@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import axios from '../../../axios-orders';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Input from '../../../components/UI/Input/Input';
 import classes from './ContactData.module.css';
 import { ICustomer, IIngredients, IOrder } from '../../BurgerBuilder/BurgerBuilderTypes';
 
@@ -71,10 +72,34 @@ class ContactData extends Component<RouteComponentProps & IProps, ICustomer & IS
                <Spinner />
             ) : (
                <form>
-                  <input type="text" name="name" placeholder="Your Name" />
-                  <input type="email" name="email" placeholder="Your Mail" />
-                  <input type="text" name="street" placeholder="Street" />
-                  <input type="text" name="postal" placeholder="Postal Code" />
+                  <Input
+                     inputType="input"
+                     label="Name"
+                     type="text"
+                     name="name"
+                     placeholder="Your Name"
+                  />
+                  <Input
+                     inputType="input"
+                     label="Email"
+                     type="email"
+                     name="email"
+                     placeholder="Your Mail"
+                  />
+                  <Input
+                     inputType="input"
+                     label="Street"
+                     type="text"
+                     name="street"
+                     placeholder="Street"
+                  />
+                  <Input
+                     inputType="input"
+                     label="Postal"
+                     type="text"
+                     name="postal"
+                     placeholder="Postal Code"
+                  />
                   <Button btnType="Success" clicked={this.orderHandler}>
                      ORDER
                   </Button>
